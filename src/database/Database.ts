@@ -1,7 +1,6 @@
 import { IInsertVideo } from "../interfaces";
 import { IExecuteQuery } from "../interfaces";
 import { IVideo } from "../interfaces";
-import { IPromiseResult } from "promise-helper";
 
 export class Database implements IInsertVideo {
 
@@ -11,7 +10,7 @@ export class Database implements IInsertVideo {
     this.connection = connection;
   }
 
-  InsertVideo(video: IVideo){
+  InsertVideo(video: IVideo) {
     const query = "INSERT INTO Video (title, url) VALUES (?,?)";
     const values = [video.title, video.url];
     return this.connection.ExecuteQuery(query, values);
