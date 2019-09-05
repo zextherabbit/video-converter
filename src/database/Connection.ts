@@ -1,11 +1,13 @@
-import { IConnection } from "../interfaces/IConnection";
+import { IExecuteQuery } from "../interfaces";
 import * as mysql from "mysql2/promise";
 import config from "../../config.json";
+import { PromiseWrapper, IPromiseResult } from 'promise-helper';
 
-class MysqlConnection implements IConnection {
+class MysqlConnection implements IExecuteQuery {
 
   private connection: mysql.Pool;
   private static _Instance: MysqlConnection;
+  private Wrapper = new PromiseWrapper();
 
   private constructor() {
     this.connection = mysql.createPool(this.config());
@@ -27,8 +29,8 @@ class MysqlConnection implements IConnection {
     }
   }
 
-  ExecuteQuery(query: string, values: string[]) {
-    return this.connection.execute(query, values);
+  ExecuteQuery(query: string, values: string[]){
+    return this.Wrapper.WrappPromise(this.connection.execute(query, values));
   }
 
 }

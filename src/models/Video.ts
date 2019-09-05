@@ -1,15 +1,16 @@
-import { IVideo } from "../interfaces/IVideo";
-import { IDatabase } from "../interfaces/IDatabase";
+import { IVideo } from "../interfaces";
+import { IInsertVideo } from "../interfaces";
+import { IPromiseResult } from "promise-helper";
 
 export class VideoModel {
 
-  private database: IDatabase;
+  private database: IInsertVideo;
 
-  constructor(database: IDatabase) {
+  constructor(database: IInsertVideo) {
     this.database = database;
   }
 
-  public Insert(video: IVideo): Promise<any> {
+  public Insert(video: IVideo){
     return this.database.InsertVideo(video);
   }
 

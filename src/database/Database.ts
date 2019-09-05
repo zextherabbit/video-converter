@@ -1,16 +1,17 @@
-import { IDatabase } from "../interfaces/IDatabase";
-import { IConnection } from "../interfaces/IConnection";
-import { IVideo } from "../interfaces/IVideo";
+import { IInsertVideo } from "../interfaces";
+import { IExecuteQuery } from "../interfaces";
+import { IVideo } from "../interfaces";
+import { IPromiseResult } from "promise-helper";
 
-export class Database implements IDatabase {
+export class Database implements IInsertVideo {
 
-  private connection: IConnection;
+  private connection: IExecuteQuery;
 
-  constructor(connection: IConnection){
+  constructor(connection: IExecuteQuery){
     this.connection = connection;
   }
 
-  InsertVideo(video: IVideo): Promise<any> {
+  InsertVideo(video: IVideo){
     const query = "INSERT INTO Video (title, url) VALUES (?,?)";
     const values = [video.title, video.url];
     return this.connection.ExecuteQuery(query, values);

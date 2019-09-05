@@ -1,6 +1,6 @@
 import { exec } from "child_process";
-import { IVideo } from "../interfaces/IVideo";
-import { IConverter } from "../interfaces/IConverter";
+import { IVideo } from "../interfaces";
+import { IConverter } from "../interfaces";
 
 //command : -movflags faststart -profile:v baseline -level 3.1
 
