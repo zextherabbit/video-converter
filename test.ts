@@ -1,16 +1,13 @@
-import connection from "./src/database/Connection";
-import { Database } from "./src/database/Database";
-import { VideoModel } from "./src/models/Video";
+import Connection from "./src/database/Connection";
+import Database from "./src/database/Database";
+import VideoModel from "./src/database/VideoModel";
 
-const db = new Database(connection);
+const con = new Connection({});
+const db = new Database(con);
 const vm = new VideoModel(db);
 
 const video = {
   id: 1,
-  url: "",
-  title: ""
-}
-
-async function i() {
-  const inserted = await vm.Insert(video);
+  url: "https://video.com/video",
+  title: "somevideo"
 }

@@ -1,5 +1,5 @@
 import { IDbResult } from "./IDatabase";
 
 export interface IExecuteQuery {
-    executeQuery(args: any[]): Promise<IDbResult>;    
+    executeQuery(query: string, values?: any[]): Promise<IDbResult>;
 }

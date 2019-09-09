@@ -13,13 +13,13 @@ export default class Database implements IDatabase {
     Insert(video: IVideo): Promise<IDbResult>{
         const query = `INSERT INTO Video (title, url) VALUES (?,?)`;
         const values = [video.title, video.url];
-        return this._connection.executeQuery([query, values]);
+        return this._connection.executeQuery(query, values);
     }    
 
     GetById(id: number | string): Promise<IDbResult>{
         const query = `SELECT * FROM Video WHERE id = ?`;
         const values = [id];
-        return this._connection.executeQuery([query, values]);    
+        return this._connection.executeQuery(query, values);
     }
 
     GetAll(): Promise<IDbResult> {
