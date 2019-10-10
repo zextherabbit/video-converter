@@ -1,0 +1,21 @@
+{
+  "db_config": {
+    "host": "",
+    "name": "",
+    "user": "",
+    "password": ""
+  },
+  "ffmpeg_config": {
+    "path": "/usr/bin/ffmpeg",
+    "command": ""
+  },
+  "video_config": {
+    "download_folder": "",
+    "converted_folder": "",
+    "video_location": ""
+  },
+  "general": {
+    "video_limit": 10,
+    "extension": ".mp4"
+  }
+}
