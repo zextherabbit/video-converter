@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Converter from "./Controllers/Converter";
 import ConvertVideo from "./UseCases/ConvertVideo";
 import config from "./config.json";
@@ -16,3 +17,6 @@ const b = videoFile.substring(videoFile.lastIndexOf('.'));
 
 console.log(c);
 console.log(b);
+=======
+
+>>>>>>> f4e9d709776cb5547f9261c9c57e880ca3cb1466
