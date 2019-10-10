@@ -1,0 +1,19 @@
+{
+  "name": "video-converter",
+  "version": "1.0.0",
+  "description": "Service for converting videos using ffmpeg video codec",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "test.js",
+    "start": "node ./dist/index.js"
+  },
+  "author": "zextherabbit",
+  "license": "MIT",
+  "dependencies": {
+    "promise-helper": "git+https://git@github.com/zextherabbit/promise-helper.git"
+  },
+  "devDependencies": {
+    "@types/log-update": "^3.1.0",
+    "@types/node": "^12.6.8"
+  }
+}
