@@ -1,29 +1,40 @@
 import IConverter from "./IConvert";
-import { exec, ExecException } from "child_process";
+import { spawn, ChildProcess } from "child_process";
 
 export default class Converter implements IConverter {
 
   private timeOut: number;
 
-  constructor(timeOut: number){
+  constructor(timeOut: number) {
     this.timeOut = timeOut;
   }
 
-  private createCommand(codecPath: string, videoTitle: string, videoExtension: string, command: string, convertedPath: string, newTitle: string, newExtension: string){
-    return `${codecPath} -i ${videoTitle}${videoExtension} ${command} ${convertedPath}/${newTitle}${newExtension}`;
+  private createCommand(videoTitle: string, videoExtension: string, command: string, convertedPath: string, newTitle: string, newExtension: string) {
+    return `-i ${videoTitle}${videoExtension} ${command} ${convertedPath}/${newTitle}${newExtension}`;
   }
 
-  public convertVideo(videoPath: string, videoTitle: string, videoExtension: string, toExtension: string, convertedPath: string, codecCommand: string, codecLocation: string, newVideoTitle: string): Promise<{ result: any; error: Error | null; }> {
-    
-    const fullCommand = this.createCommand(codecLocation, videoTitle, videoExtension, codecCommand, convertedPath, newVideoTitle, toExtension);
+  private TimeOut(child: ChildProcess){
+    return setTimeout(()=>{
+      child.emit("error", new Error("Timeout"));
+    }, this.timeOut);
+  }
 
+  public convertVideo(videoPath: string, videoTitle: string, videoExtension: string, toExtension: string, convertedPath: string, codecCommand: string, codecLocation: string, newVideoTitle: string): Promise<{ status: string, video: string }> {
+
+    const fullCommand = this.createCommand(videoTitle, videoExtension, codecCommand, convertedPath, newVideoTitle, toExtension);
     return new Promise((resolve, reject) => {
-      exec(fullCommand, { timeout: this.timeOut, cwd: videoPath, killSignal: "SIGTERM" }, (error: ExecException | null, stdout: string, stderr: string) => {
-        if(error) reject({ result: null, error });
-        resolve({ result: stdout, error: null });
+      let child = spawn(codecLocation, fullCommand.split(' '),{ cwd: videoPath })
+      child.on("error", (error) => {
+        child.kill();
+        reject(error);
       })
+      child.on("close", () => {
+        resolve({ status: "Done", video: videoTitle });
+        clearTimeout(this.TimeOut(child));
+      })
+      this.TimeOut(child);
     });
 
   }
-  
+
 }
