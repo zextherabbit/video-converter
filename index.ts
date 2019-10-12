@@ -14,11 +14,7 @@ const video_reader = new VideoReader(video_file_reader);
 const queue = new Queue(config.general.video_limit);
 
 function logOut() {
-  process.stdout.write(`
-      Tasks completed: ${queue.CompletedCount}
-      Tasks remaining: ${queue.QueueCount}
-      Tasks faield   : ${queue.FailedCount}
-   `);
+  process.stdout.write(`Tasks - completed: ${queue.CompletedCount}, remaining: ${queue.QueueCount}, faield : ${queue.FailedCount}\r`);
 }
 
 const resolvedHandler: Handler<string> = ({ promise, resolved }): void => {
